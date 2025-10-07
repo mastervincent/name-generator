@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www/name-generator
+    volumes:
+      - /home/root/name-generator:/var/www/name-generator
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: xxx
+      MYSQL_USER: cent
+      MYSQL_PASSWORD: xxxpass
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - /home/root/name-generator:/var/www/name-generator
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+volumes:
+  dbdata:
+
+networks:
+  app-network:
