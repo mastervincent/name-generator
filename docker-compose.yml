@@ -35,7 +35,8 @@ services:
       - "80:80"
     volumes:
       - /home/root/name-generator:/var/www/name-generator
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/root/name-generator/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/root/name-generator/letsencrypt:/etc/letsencrypt
     networks:
       - app-network
     depends_on:
