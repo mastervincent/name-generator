@@ -5,7 +5,7 @@
     </div>
 
     <button wire:click="generate" class="btn btn-warning btn-lg text-white my-5">
-        Generate Name by cent
+        Generate Name
     </button>
 
 </div>
